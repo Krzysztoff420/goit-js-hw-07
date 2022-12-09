@@ -6,8 +6,9 @@ console.log(galleryItems);
 const gallery = document.querySelector(".gallery");
 
 const item = galleryItems
-  .map(({ preview, original, description }) => 
-    `<div class="gallery__item">
+  .map(
+    ({ preview, original, description }) =>
+      `<div class="gallery__item">
       <a class="gallery__link" href="${original}">
         <img
           class="gallery__image"
@@ -21,3 +22,22 @@ const item = galleryItems
   .join("");
 
 gallery.insertAdjacentHTML("beforeend", item);
+
+var instance;
+
+gallery.addEventListener("click", (event) => {
+  event.preventDefault();
+  const originalImg = event.target.dataset.source;
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+  instance = basicLightbox.create(`<img src="${originalImg}">`);
+  instance.show();
+});
+
+document.body.addEventListener("keydown", (event) => {
+  const visible = basicLightbox.visible();
+  if (visible && event.key === "Escape") {
+    instance.close();
+  }
+});
