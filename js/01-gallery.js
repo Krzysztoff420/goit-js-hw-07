@@ -35,9 +35,8 @@ gallery.addEventListener("click", (event) => {
   instance.show();
 });
 
-document.body.addEventListener("keydown", (event) => {
-  const visible = basicLightbox.visible();
-  if (visible && event.key === "Escape") {
+gallery.addEventListener("keydown", (event) => {
+  if (basicLightbox.visible() && event.key === "Escape") {
     instance.close();
   }
 });
